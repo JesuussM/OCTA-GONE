@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public GameObject bullet;
     public Rigidbody2D rigidBody;
     public SpriteRenderer bulletSprite => GetComponent<SpriteRenderer>();
     public float maxLifeTime = 5f;
@@ -18,5 +20,18 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Top Boundary" || 
+            collision.gameObject.name == "Bottom Boundary" || 
+            collision.gameObject.name == "Left Boundary" || 
+            collision.gameObject.name == "Right Boundary")
+        {
+            Debug.Log("Bullet hit boundary");
+            Destroy(bullet);
+            // TODO: Add animation and sound effect
+        }
     }
 }
