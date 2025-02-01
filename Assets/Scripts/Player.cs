@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
         Aim();
 
         shooter.transform.rotation = transform.rotation;
-        shooter.transform.position = transform.position + transform.up * 0.4f;
+        shooter.transform.position = transform.position + transform.up * 0.38f;
     }
 
     public void Move()

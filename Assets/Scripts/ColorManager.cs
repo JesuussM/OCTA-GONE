@@ -17,12 +17,14 @@ public class ColorManager : MonoBehaviour
     void Start()
     {
         player.color = new Color(.5281104f, .6454683f, .7490194f, 1f); // light blue
+        shooter.color = new Color(120/255f, 134/255f, 155/255f, 1f); // dark grey
+        bullet.color = new Color(161/255f, 160/255f, 167/255f, 1f); // lighter grey
+
         mainCamera.backgroundColor = new Color(0.8313726f, 0.827451f, 0.854902f, 1f); // light grey
         topBorder.color = new Color(180/255f, 187/255f, 203/255f, 1f); // bluish grey
         downBorder.color = new Color(180/255f, 187/255f, 203/255f, 1f);
         leftBorder.color = new Color(180/255f, 187/255f, 203/255f, 1f);
         rightBorder.color = new Color(180/255f, 187/255f, 203/255f, 1f);
-        
     }
 
     // Update is called once per frame
