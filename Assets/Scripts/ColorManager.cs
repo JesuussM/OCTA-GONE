@@ -25,6 +25,8 @@ public class ColorManager : MonoBehaviour
         downBorder.color = new Color(180/255f, 187/255f, 203/255f, 1f);
         leftBorder.color = new Color(180/255f, 187/255f, 203/255f, 1f);
         rightBorder.color = new Color(180/255f, 187/255f, 203/255f, 1f);
+        
+        // TODO: Add the enemy sprites
     }
 
     // Update is called once per frame

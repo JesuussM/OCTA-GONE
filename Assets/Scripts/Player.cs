@@ -54,6 +54,9 @@ public class Player : MonoBehaviour
         {
             rigidBody.velocity = moveVector * moveSpeed;
             float angle = Mathf.Atan2(moveVector.y, moveVector.x) * Mathf.Rad2Deg;
+
+            // ? Maybe add particles to trail behind 
+            // ? (probably not until later)
         }
         else
         {
@@ -86,7 +89,7 @@ public class Player : MonoBehaviour
         canShoot = false;
         Bullet bullet = Instantiate(bulletPrefab, shooter.transform.position, shooter.transform.rotation);
         bullet.rigidBody.AddForce(shooter.transform.up * 20f, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f); // ? Might need to adjust this
         canShoot = true;
     }
 }
