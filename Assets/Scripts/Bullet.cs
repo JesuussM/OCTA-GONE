@@ -34,6 +34,18 @@ public class Bullet : MonoBehaviour
             // TODO: Add animation and sound effect
         }
 
-        // TODO: Add collision with enemies
+        if (collision.gameObject.tag == "Enemy")
+        {
+            if (collision.gameObject.GetComponent<Enemy>().health > 1)
+            {
+                collision.gameObject.GetComponent<Enemy>().health--;
+            }
+            else
+            {
+                // TODO: Add animation and sound effect
+                // TODO: Add points for enemy destroy
+                Destroy(collision.gameObject);
+            }
+        }
     }
 }
