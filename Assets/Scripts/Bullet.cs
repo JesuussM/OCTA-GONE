@@ -33,5 +33,7 @@ public class Bullet : MonoBehaviour
             Destroy(bullet);
             // TODO: Add animation and sound effect
         }
+
+        // TODO: Add collision with enemies
     }
 }

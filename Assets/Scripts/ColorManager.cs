@@ -12,6 +12,12 @@ public class ColorManager : MonoBehaviour
     public SpriteRenderer leftBorder;
     public SpriteRenderer rightBorder;
     public SpriteRenderer bullet;
+    public SpriteRenderer enemySpawner;
+    public SpriteRenderer baseEnemy;
+    public SpriteRenderer fastEnemy;
+    public SpriteRenderer tankEnemy;
+    public SpriteRenderer sentryEnemy;
+    public SpriteRenderer sentryBullet;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +33,8 @@ public class ColorManager : MonoBehaviour
         rightBorder.color = new Color(180/255f, 187/255f, 203/255f, 1f);
         
         // TODO: Add the enemy sprites
+        enemySpawner.color = new Color(206/255f, 173/255f, 183/255f, 1f); // hot pink
+        baseEnemy.color = new Color(212/255f, 194/255f, 198/255f, 1f); // pink
     }
 
     // Update is called once per frame

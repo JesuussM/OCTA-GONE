@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RoundManager : MonoBehaviour
 {
+     Vector2 randomPosition = new Vector2();
     public EnemySpawner enemySpawer;
 
     // Start is called before the first frame update
@@ -19,14 +20,16 @@ public class RoundManager : MonoBehaviour
         
     }
 
-    public void StartRound()
+    public Vector2 getRandomLocation()
     {
         float x = Random.Range(-9.5f, 9.5f);
         float y = Random.Range(-4f, 4f);
-        Vector2 randomPosition = new Vector2(x, y);
-        Instantiate(enemySpawer, randomPosition, Quaternion.identity);
+        return randomPosition = new Vector2(x, y);
+    }
 
+    public void StartRound()
+    {
+        Instantiate(enemySpawer, getRandomLocation(), Quaternion.identity);
         StartCoroutine(enemySpawer.SpawnEnemies("baseEnemy", 5, 2f, randomPosition));
-        Debug.Log("Round started");
     }
 }

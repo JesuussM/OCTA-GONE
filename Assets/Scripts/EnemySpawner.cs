@@ -7,6 +7,9 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemySpawer;
     public GameObject baseEnemy;
+    public GameObject fastEnemy;
+    public GameObject tankEnemy;
+    public GameObject sentryEnemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +22,6 @@ public class EnemySpawner : MonoBehaviour
         
     }
 
-    // TODO: Finish this method for the other enemy types
     public IEnumerator SpawnEnemies(string enemyType, int amount, float delay, Vector2 position) 
     {
         yield return new WaitForSeconds(1f);
@@ -27,21 +29,31 @@ public class EnemySpawner : MonoBehaviour
         {
             case "baseEnemy":
                 for (int i = 0; i < amount; i++)
-                {
-                    
+                {   
                     Instantiate(baseEnemy, position, Quaternion.identity);
-                    Debug.Log("base enemy spawner");
                     yield return new WaitForSeconds(delay);
                 }
                 break;
             case "fastEnemy":
-                Debug.Log("fast enemy spawner");
+                for (int i = 0; i < amount; i++)
+                {
+                    Instantiate(fastEnemy, position, Quaternion.identity);
+                    yield return new WaitForSeconds(delay);
+                }
                 break;
             case "tankEnemy":
-                Debug.Log("tank enemy spawner");
+                for (int i = 0; i < amount; i++)
+                {
+                    Instantiate(tankEnemy, position, Quaternion.identity);
+                    yield return new WaitForSeconds(delay);
+                }
                 break;
             case "sentryEnemy":
-                Debug.Log("sentry enemy spawner");
+                for (int i = 0; i < amount; i++)
+                {
+                    Instantiate(sentryEnemy, position, Quaternion.identity);
+                    yield return new WaitForSeconds(delay);
+                }
                 break;
             default:
                 Debug.Log("Error: Invalid enemy type");
