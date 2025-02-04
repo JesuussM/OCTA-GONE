@@ -6,7 +6,7 @@ public class RoundManager : MonoBehaviour
 {
     public bool testing = true; // ! Delete this when done testing
     Vector2 randomPosition = new Vector2();
-    public EnemySpawner enemySpawer;
+    public EnemySpawner enemySpawner;
     private int round = 1;
     public ColorManager colorManager;
 
@@ -70,34 +70,45 @@ public class RoundManager : MonoBehaviour
         {
             case 1:
                 yield return Wait(4f);
-                Instantiate(enemySpawer, getRandomLocation(), Quaternion.identity);
-                StartCoroutine(enemySpawer.GetComponent<EnemySpawner>().SpawnEnemies("baseEnemy", 1, 2f, randomPosition)); // 8
+                EnemySpawner spawner1 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
+                StartCoroutine(spawner1.GetComponent<EnemySpawner>().FadeInSpawner(spawner1));
+                yield return StartCoroutine(spawner1.GetComponent<EnemySpawner>().SpawnEnemies("baseEnemy", 1, 2f, randomPosition)); // 8
+                StartCoroutine(spawner1.GetComponent<EnemySpawner>().FadeOutSpawner(spawner1));
                 
                 yield return Wait(10f);
-                Instantiate(enemySpawer, getRandomLocation(), Quaternion.identity);
-                StartCoroutine(enemySpawer.GetComponent<EnemySpawner>().SpawnEnemies("baseEnemy", 1, 2f, randomPosition)); // 4
+                EnemySpawner spawner2 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
+                StartCoroutine(spawner2.GetComponent<EnemySpawner>().FadeInSpawner(spawner2));
+                yield return StartCoroutine(spawner2.GetComponent<EnemySpawner>().SpawnEnemies("baseEnemy", 1, 2f, randomPosition)); // 4
+                StartCoroutine(spawner2.GetComponent<EnemySpawner>().FadeOutSpawner(spawner2));
 
                 yield return Wait(2f);
-                Instantiate(enemySpawer, getRandomLocation(), Quaternion.identity);
-                StartCoroutine(enemySpawer.GetComponent<EnemySpawner>().SpawnEnemies("baseEnemy", 1, 2f, randomPosition)); // 4
+                EnemySpawner spawner3 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
+                StartCoroutine(spawner3.GetComponent<EnemySpawner>().FadeInSpawner(spawner3));
+                yield return StartCoroutine(spawner3.GetComponent<EnemySpawner>().SpawnEnemies("baseEnemy", 1, 2f, randomPosition)); // 4
+                StartCoroutine(spawner3.GetComponent<EnemySpawner>().FadeOutSpawner(spawner3));
 
                 yield return Wait(2f);
-                Instantiate(enemySpawer, getRandomLocation(), Quaternion.identity);
-                StartCoroutine(enemySpawer.GetComponent<EnemySpawner>().SpawnEnemies("baseEnemy", 1, 2f, randomPosition)); // 4
+                EnemySpawner spawner4 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
+                StartCoroutine(spawner4.GetComponent<EnemySpawner>().FadeInSpawner(spawner4));
+                yield return StartCoroutine(spawner4.GetComponent<EnemySpawner>().SpawnEnemies("baseEnemy", 1, 2f, randomPosition)); // 4
+                StartCoroutine(spawner4.GetComponent<EnemySpawner>().FadeOutSpawner(spawner4));
                 
                 break;
             case 2:
                 yield return Wait(4f);
-                Instantiate(enemySpawer, getRandomLocation(), Quaternion.identity);
-                StartCoroutine(enemySpawer.GetComponent<EnemySpawner>().SpawnEnemies("fastEnemy", 1, 2f, randomPosition));
+                EnemySpawner spawner5 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
+                yield return StartCoroutine(spawner5.GetComponent<EnemySpawner>().SpawnEnemies("fastEnemy", 1, 2f, randomPosition));
+                StartCoroutine(spawner5.GetComponent<EnemySpawner>().FadeOutSpawner(spawner5));
                 
                 yield return Wait(10f);
-                Instantiate(enemySpawer, getRandomLocation(), Quaternion.identity);
-                StartCoroutine(enemySpawer.GetComponent<EnemySpawner>().SpawnEnemies("fastEnemy", 1, 2f, randomPosition));
+                EnemySpawner spawner6 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
+                yield return StartCoroutine(spawner6.GetComponent<EnemySpawner>().SpawnEnemies("fastEnemy", 1, 2f, randomPosition));
+                StartCoroutine(spawner6.GetComponent<EnemySpawner>().FadeOutSpawner(spawner6));
 
                 yield return Wait(2f);
-                Instantiate(enemySpawer, getRandomLocation(), Quaternion.identity);
-                StartCoroutine(enemySpawer.GetComponent<EnemySpawner>().SpawnEnemies("fastEnemy", 1, 2f, randomPosition));
+                EnemySpawner spawner7 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
+                yield return StartCoroutine(spawner7.GetComponent<EnemySpawner>().SpawnEnemies("fastEnemy", 1, 2f, randomPosition));
+                StartCoroutine(spawner7.GetComponent<EnemySpawner>().FadeOutSpawner(spawner7));
                 
                 CheckEnemies();
 
