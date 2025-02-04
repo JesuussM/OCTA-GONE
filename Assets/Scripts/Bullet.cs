@@ -45,6 +45,7 @@ public class Bullet : MonoBehaviour
                 // TODO: Add animation and sound effect
                 // TODO: Add points for enemy destroy
                 Destroy(collision.gameObject);
+                Destroy(bullet);
             }
         }
     }

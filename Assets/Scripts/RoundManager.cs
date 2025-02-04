@@ -8,6 +8,7 @@ public class RoundManager : MonoBehaviour
     Vector2 randomPosition = new Vector2();
     public EnemySpawner enemySpawer;
     private int round = 1;
+    public ColorManager colorManager;
 
 
     // Start is called before the first frame update
@@ -47,33 +48,42 @@ public class RoundManager : MonoBehaviour
     {
         while (GameObject.FindGameObjectsWithTag("Enemy").Length > 0)
         {
+            // ? Maybe add an enemies left counter after some time
+            // ? Might need a total number of enemies for the round then
+            // ? when there are 10 left start displaying it
             Debug.Log("Enemies left: " + GameObject.FindGameObjectsWithTag("Enemy").Length);
             yield return new WaitForSeconds(1f);
         }
         round++;
         Debug.Log("Round: " + round);
+        colorManager.colorTable(round);
+        // TODO: Add delay before next round
+        // ? This could be done when I add the UI manager
+        yield return new WaitForSeconds(3f); // ! Delete this when UI manager handles it
         StartCoroutine(StartRoundCoroutine());
-        // ? Maybe add a enemies left counter after some time
-        // ? Might need a total number of enemies for the round then
-        // ? when there are 10 left start displaying it
     }
     
     private IEnumerator StartRoundCoroutine()
     {
+        // TODO: Implement all rounds
         switch (round)
         {
             case 1:
                 yield return Wait(4f);
                 Instantiate(enemySpawer, getRandomLocation(), Quaternion.identity);
-                StartCoroutine(enemySpawer.GetComponent<EnemySpawner>().SpawnEnemies("baseEnemy", 1, 2f, randomPosition));
+                StartCoroutine(enemySpawer.GetComponent<EnemySpawner>().SpawnEnemies("baseEnemy", 1, 2f, randomPosition)); // 8
                 
                 yield return Wait(10f);
                 Instantiate(enemySpawer, getRandomLocation(), Quaternion.identity);
-                StartCoroutine(enemySpawer.GetComponent<EnemySpawner>().SpawnEnemies("baseEnemy", 1, 2f, randomPosition));
+                StartCoroutine(enemySpawer.GetComponent<EnemySpawner>().SpawnEnemies("baseEnemy", 1, 2f, randomPosition)); // 4
 
                 yield return Wait(2f);
                 Instantiate(enemySpawer, getRandomLocation(), Quaternion.identity);
-                StartCoroutine(enemySpawer.GetComponent<EnemySpawner>().SpawnEnemies("baseEnemy", 1, 2f, randomPosition));
+                StartCoroutine(enemySpawer.GetComponent<EnemySpawner>().SpawnEnemies("baseEnemy", 1, 2f, randomPosition)); // 4
+
+                yield return Wait(2f);
+                Instantiate(enemySpawer, getRandomLocation(), Quaternion.identity);
+                StartCoroutine(enemySpawer.GetComponent<EnemySpawner>().SpawnEnemies("baseEnemy", 1, 2f, randomPosition)); // 4
                 
                 break;
             case 2:

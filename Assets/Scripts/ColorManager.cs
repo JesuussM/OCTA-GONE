@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,6 +45,32 @@ public class ColorManager : MonoBehaviour
         
     }
 
+    public void colorTable(int round)
+    {
+        // TODO: Add the color changes for the rest of the rounds
+        switch (round) 
+        {
+            case 2:
+                StartCoroutine(TransitionColor(player, new Color(152/255f, 152/255f, 181/255f, 1f), 2f));
+                // StartCoroutine(TransitionColor(shooter, new Color(0.8313726f, 0.827451f, 0.854902f, 1f), 2f));
+                StartCoroutine(TransitionColor(bullet, new Color(145/255f, 151/255f, 174/255f, 1f), 2f));
+                
+                StartCoroutine(TransitionColor(mainCamera.backgroundColor, new Color(98/255f, 103/255f, 149/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(topBorder, new Color(150/255f, 150/255f, 172/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(downBorder, new Color(150/255f, 150/255f, 172/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(leftBorder, new Color(150/255f, 150/255f, 172/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(rightBorder, new Color(150/255f, 150/255f, 172/255f, 1f), 2f));
+
+                StartCoroutine(TransitionColor(enemySpawner, new Color(146/255f, 144/255f, 172/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(fastEnemy, new Color(152/255f, 143/255f, 161/255f, 1f), 2f));
+
+                break;
+            default:
+                break;
+        }
+    }
+
+
     public IEnumerator TransitionColor(SpriteRenderer spriteRenderer, Color targetColor, float duration)
     {
         Color initialColor = spriteRenderer.color;
@@ -57,5 +84,20 @@ public class ColorManager : MonoBehaviour
         }
 
         spriteRenderer.color = targetColor;
+    }
+
+    private IEnumerator TransitionColor(Color backgroundColor, Color targetColor, float duration)
+    {
+        Color initialColor = mainCamera.backgroundColor;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            mainCamera.backgroundColor = Color.Lerp(initialColor, targetColor, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        mainCamera.backgroundColor = targetColor;
     }
 }
