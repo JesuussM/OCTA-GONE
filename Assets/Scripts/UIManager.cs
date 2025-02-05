@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,6 +30,31 @@ public class UIManager : MonoBehaviour
     {
         score += points;
         scoreText.text = score.ToString();
+        StartCoroutine(ScoreGainAnimation());
+    }
+
+    private IEnumerator ScoreGainAnimation()
+    {
+        Vector2 initialScale = scoreText.transform.localScale;
+        Vector2 targetScale = initialScale * 1.2f;
+        Color initialColor = scoreText.color;
+        Color targetColor = Color.white;
+    
+        for (float t = 0.0f; t < 1f; t += Time.deltaTime / 0.2f)
+        {
+            scoreText.transform.localScale = Vector2.Lerp(initialScale, targetScale, t);
+            scoreText.color = Color.Lerp(initialColor, targetColor, t);
+            yield return null;
+        }
+        scoreText.transform.localScale = targetScale;
+    
+        for (float t = 0.0f; t < 1f; t += Time.deltaTime / 0.2f)
+        {
+            scoreText.transform.localScale = Vector2.Lerp(targetScale, initialScale, t);
+            scoreText.color = Color.Lerp(targetColor, initialColor, t);
+            yield return null;
+        }
+        scoreText.transform.localScale = initialScale;
     }
 
     public void UpdateAndDisplayWave(string topText)

@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 {
     public float enemySpeed = 1;
     public int health = 1;
+    public int points = 0;
     private GameObject player;
 
     void Start()

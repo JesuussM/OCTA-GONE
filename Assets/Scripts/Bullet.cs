@@ -8,7 +8,6 @@ public class Bullet : MonoBehaviour
     public GameObject bullet;
     public Rigidbody2D rigidBody;
     public SpriteRenderer bulletSprite => GetComponent<SpriteRenderer>();
-    public float maxLifeTime = 5f;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +34,7 @@ public class Bullet : MonoBehaviour
 
         if (collision.gameObject.tag == "Enemy")
         {
+            var uiManager = FindObjectOfType<UIManager>();
             if (collision.gameObject.GetComponent<Enemy>().health > 1)
             {
                 collision.gameObject.GetComponent<Enemy>().health--;
@@ -45,6 +45,7 @@ public class Bullet : MonoBehaviour
                 // TODO: Add points for enemy destroy
                 Destroy(collision.gameObject);
                 Destroy(bullet);
+                uiManager.UpdateScore(collision.gameObject.GetComponent<Enemy>().points);
             }
         }
     }
