@@ -103,8 +103,13 @@ public class UIManager : MonoBehaviour
         {
             case 2:
             case 3:
+            case 4:
                 UpdateAndDisplayWave("W A V E  " + round);
-                UpdateAndDisplayCenterText("W A V E  C O M P L E T E ");
+                UpdateAndDisplayCenterText("W A V E   C O M P L E T E ");
+                break;
+            case 5:
+                UpdateAndDisplayWave("SHOP");
+                UpdateAndDisplayCenterText("W A V E   C O M P L E T E ");
                 break;
             default:
                 break;

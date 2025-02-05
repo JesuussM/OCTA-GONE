@@ -20,6 +20,8 @@ public class ColorManager : MonoBehaviour
     public SpriteRenderer sentryEnemy;
     public SpriteRenderer sentryBullet;
 
+    // TODO: Add the color of animation for destroying the enemies when added
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +53,7 @@ public class ColorManager : MonoBehaviour
         {
             case 2:
                 StartCoroutine(TransitionColor(player, new Color(152/255f, 152/255f, 181/255f, 1f), 2f));
-                // StartCoroutine(TransitionColor(shooter, new Color(0.8313726f, 0.827451f, 0.854902f, 1f), 2f));
+                StartCoroutine(TransitionColor(shooter, new Color(145/255f, 151/255f, 174/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(bullet, new Color(145/255f, 151/255f, 174/255f, 1f), 2f));
                 
                 StartCoroutine(TransitionColor(mainCamera.backgroundColor, new Color(98/255f, 103/255f, 149/255f, 1f), 2f));
@@ -62,7 +64,47 @@ public class ColorManager : MonoBehaviour
 
                 StartCoroutine(TransitionColor(enemySpawner, new Color(146/255f, 144/255f, 172/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(fastEnemy, new Color(152/255f, 143/255f, 161/255f, 1f), 2f));
+                break;
+            case 3:
+                StartCoroutine(TransitionColor(player, new Color(205/255f, 188/255f, 34/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(shooter, new Color(25/255f, 20/255f, 10/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(bullet, new Color(25/255f, 20/255f, 10/255f, 1f), 2f));
 
+                StartCoroutine(TransitionColor(mainCamera.backgroundColor, new Color(207/255f, 205/255f, 197/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(topBorder, new Color(180/255f, 168/255f, 89/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(downBorder, new Color(180/255f, 168/255f, 89/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(leftBorder, new Color(180/255f, 168/255f, 89/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(rightBorder, new Color(180/255f, 168/255f, 89/255f, 1f), 2f));
+
+                StartCoroutine(TransitionColor(enemySpawner, new Color(82/255f, 179/255f, 174/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(baseEnemy, new Color(128/255f, 187/255f, 192/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(fastEnemy, new Color(84/255f, 181/255f, 202/255f, 1f), 2f));
+                break;
+            case 4:
+                StartCoroutine(TransitionColor(player, new Color(205/255f, 187/255f, 170/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(shooter, new Color(32/255f, 21/255f, 18/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(bullet, new Color(32/255f, 21/255f, 18/255f, 1f), 2f));
+
+                StartCoroutine(TransitionColor(mainCamera.backgroundColor, new Color(156/255f, 147/255f, 145/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(topBorder, new Color(187/255f, 165/255f, 144/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(downBorder, new Color(187/255f, 165/255f, 144/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(leftBorder, new Color(187/255f, 165/255f, 144/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(rightBorder, new Color(187/255f, 165/255f, 144/255f, 1f), 2f));
+
+                StartCoroutine(TransitionColor(enemySpawner, new Color(174/255f, 194/255f, 187/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(baseEnemy, new Color(176/255f, 191/255f, 190/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(fastEnemy, new Color(165/255f, 192/255f, 198/255f, 1f), 2f));
+                break;
+            case 5:
+                StartCoroutine(TransitionColor(player, new Color(.5281104f, .6454683f, .7490194f, 1f), 2f));
+                StartCoroutine(TransitionColor(shooter, new Color(120/255f, 134/255f, 155/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(bullet, new Color(161/255f, 160/255f, 167/255f, 1f), 2f));
+
+                StartCoroutine(TransitionColor(mainCamera.backgroundColor, new Color(0.8313726f, 0.827451f, 0.854902f, 1f), 2f));
+                StartCoroutine(TransitionColor(topBorder, new Color(180/255f, 187/255f, 203/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(downBorder, new Color(180/255f, 187/255f, 203/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(leftBorder, new Color(180/255f, 187/255f, 203/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(rightBorder, new Color(180/255f, 187/255f, 203/255f, 1f), 2f));
                 break;
             default:
                 break;

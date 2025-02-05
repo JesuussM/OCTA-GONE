@@ -41,11 +41,10 @@ public class Bullet : MonoBehaviour
             }
             else
             {
-                // TODO: Add animation and sound effect
-                // TODO: Add points for enemy destroy
                 Destroy(collision.gameObject);
                 Destroy(bullet);
                 uiManager.UpdateScore(collision.gameObject.GetComponent<Enemy>().points);
+                // TODO: Add animation and sound effect
             }
         }
     }

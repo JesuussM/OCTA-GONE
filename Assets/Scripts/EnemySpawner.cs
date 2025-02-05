@@ -39,21 +39,24 @@ public class EnemySpawner : MonoBehaviour
             case "fastEnemy":
                 for (int i = 0; i < amount; i++)
                 {
-                    Instantiate(fastEnemy, position, Quaternion.identity);
+                    GameObject enemy = Instantiate(fastEnemy, position, Quaternion.identity);
+                    StartCoroutine(EnemySpawnAnimation(enemy));
                     yield return new WaitForSeconds(delay);
                 }
                 break;
             case "tankEnemy":
                 for (int i = 0; i < amount; i++)
                 {
-                    Instantiate(tankEnemy, position, Quaternion.identity);
+                    GameObject enemy = Instantiate(tankEnemy, position, Quaternion.identity);
+                    StartCoroutine(EnemySpawnAnimation(enemy));
                     yield return new WaitForSeconds(delay);
                 }
                 break;
             case "sentryEnemy":
                 for (int i = 0; i < amount; i++)
                 {
-                    Instantiate(sentryEnemy, position, Quaternion.identity);
+                    GameObject enemy = Instantiate(sentryEnemy, position, Quaternion.identity);
+                    StartCoroutine(EnemySpawnAnimation(enemy));
                     yield return new WaitForSeconds(delay);
                 }
                 break;
