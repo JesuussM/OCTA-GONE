@@ -78,7 +78,7 @@ public class RoundManager : MonoBehaviour
         switch (round)
         {
             case 1:
-                yield return Wait(4f);
+                yield return Wait(2f);
                 EnemySpawner spawner1 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
                 // ! Delete this when done testing
                 yield return StartCoroutine(HandleSpawner(spawner1, "baseEnemy", 1, 2f, randomPosition));

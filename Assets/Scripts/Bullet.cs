@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public GameObject bullet;
     public Rigidbody2D rigidBody;
     public SpriteRenderer bulletSprite => GetComponent<SpriteRenderer>();
+    public GameObject enemyDeathAnimation;
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +45,14 @@ public class Bullet : MonoBehaviour
                 Destroy(collision.gameObject);
                 Destroy(bullet);
                 uiManager.UpdateScore(collision.gameObject.GetComponent<Enemy>().points);
-                // TODO: Add animation and sound effect
+
+                var instantiatedAnimation = Instantiate(enemyDeathAnimation, collision.gameObject.transform.position, collision.gameObject.transform.rotation * Quaternion.Euler(0, 0, 90));
+                Animator animator = instantiatedAnimation.GetComponent<Animator>();
+                AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
+                float clipLength = clipInfo[0].clip.length;
+                Destroy(instantiatedAnimation, clipLength);
+                
+                // TODO: Add sound effect
             }
         }
     }
