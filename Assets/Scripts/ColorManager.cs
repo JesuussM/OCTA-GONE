@@ -87,7 +87,7 @@ public class ColorManager : MonoBehaviour
 
     private IEnumerator TransitionColor(Color backgroundColor, Color targetColor, float duration)
     {
-        Color initialColor = mainCamera.backgroundColor;
+        Color initialColor = backgroundColor;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)

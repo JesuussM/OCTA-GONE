@@ -29,7 +29,6 @@ public class Bullet : MonoBehaviour
             collision.gameObject.name == "Left Boundary" || 
             collision.gameObject.name == "Right Boundary")
         {
-            Debug.Log("Bullet hit boundary");
             Destroy(bullet);
             // TODO: Add animation and sound effect
         }
