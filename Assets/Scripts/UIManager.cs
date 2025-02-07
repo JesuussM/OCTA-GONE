@@ -10,6 +10,11 @@ public class UIManager : MonoBehaviour
     public Text waveCountText;
     public Text centerText;
     public int score;
+    public GameObject leftShopCircle;
+    public Text leftShopText;
+    public GameObject rightShopCircle;
+    public Text rightShopText;
+    public bool upgradeSelected = false;
 
     // Start is called before the first frame update
     void Start()
@@ -57,12 +62,12 @@ public class UIManager : MonoBehaviour
         scoreText.transform.localScale = initialScale;
     }
 
-    public void UpdateAndDisplayWave(string topText)
+    public void UpdateTopText(string topText)
     {
         waveCountText.text = topText;
     }
 
-    public void UpdateAndDisplayCenterText(string message)
+    public void UpdateCenterText(string message)
     {
         centerText.text = message;
     }
@@ -85,7 +90,6 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator FadeOutText(Text text, Text message)
     {
-        yield return new WaitForSeconds(2f);
         for (float t = 0.0f; t < 1f; t += Time.deltaTime)
         {
             text.color = new Color(text.color.r, text.color.g, text.color.b, 1.0f - t);
@@ -96,6 +100,44 @@ public class UIManager : MonoBehaviour
         message.gameObject.SetActive(false);
     }
 
+    public IEnumerator Shop()
+    {
+        SpriteRenderer leftShopSprite = leftShopCircle.GetComponent<SpriteRenderer>();
+        SpriteRenderer rightShopSprite = rightShopCircle.GetComponent<SpriteRenderer>();
+        leftShopCircle.SetActive(true);
+        rightShopCircle.SetActive(true);
+
+        StartCoroutine(FadeInText(leftShopText, rightShopText));
+        UpdateTopText("");
+        UpdateCenterText("C H O O S E   A N   U P G R A D E");
+        StartCoroutine(FadeInText(waveCountText, centerText));
+
+        for (float t = 0.0f; t < 0.5f; t += Time.deltaTime)
+        {
+            leftShopSprite.color = new Color(leftShopSprite.color.r, leftShopSprite.color.g, leftShopSprite.color.b, t * 2);
+            rightShopSprite.color = new Color(rightShopSprite.color.r, rightShopSprite.color.g, rightShopSprite.color.b, t * 2);
+            yield return null;
+        }
+
+        while(!upgradeSelected)
+        {
+            yield return null;
+        }
+
+        StartCoroutine(FadeOutText(leftShopText, rightShopText));
+        StartCoroutine(FadeOutText(waveCountText, centerText));
+        for (float t = 0.0f; t < 0.5f; t += Time.deltaTime)
+        {
+            leftShopSprite.color = new Color(leftShopSprite.color.r, leftShopSprite.color.g, leftShopSprite.color.b, 1.0f - t * 2);
+            rightShopSprite.color = new Color(rightShopSprite.color.r, rightShopSprite.color.g, rightShopSprite.color.b, 1.0f - t * 2);
+            yield return null;
+        }
+        leftShopCircle.SetActive(false);
+        rightShopCircle.SetActive(false);
+
+        upgradeSelected = false;
+        yield return new WaitForSeconds(3f);
+    }
     public void TextTable(int round) 
     {
         // TODO: Add the text changes for the rest of the rounds
@@ -104,14 +146,16 @@ public class UIManager : MonoBehaviour
             case 2:
             case 3:
             case 4:
-                UpdateAndDisplayWave("W A V E  " + round);
-                UpdateAndDisplayCenterText("W A V E   C O M P L E T E ");
+                UpdateTopText("W A V E  " + round);
+                UpdateCenterText("W A V E   C O M P L E T E ");
                 break;
             case 5:
-                UpdateAndDisplayWave("SHOP");
-                UpdateAndDisplayCenterText("W A V E   C O M P L E T E ");
+                UpdateTopText("SHOP");
+                UpdateCenterText("W A V E   C O M P L E T E ");
                 break;
             default:
+                UpdateTopText("W A V E  E R R O R");
+                UpdateCenterText("E N D  R E A C H E D ");
                 break;
         }
     }

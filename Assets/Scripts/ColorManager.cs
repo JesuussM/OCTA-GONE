@@ -99,7 +99,7 @@ public class ColorManager : MonoBehaviour
                 StartCoroutine(TransitionColor(fastEnemy, new Color(165/255f, 192/255f, 198/255f, 1f), 2f));
                 break;
             case 5:
-                StartCoroutine(TransitionColor(player, new Color(.5281104f, .6454683f, .7490194f, 1f), 2f));
+                StartCoroutine(TransitionColor(player, new Color(157/225f, 186/255f, 217/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(shooter, new Color(120/255f, 134/255f, 155/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(bullet, new Color(161/255f, 160/255f, 167/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(enemyDeathAnimation, new Color(161/255f, 160/255f, 167/255f, 1f), 2f));

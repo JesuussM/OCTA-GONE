@@ -6,7 +6,9 @@ using UnityEngine.XR;
 
 public class RoundManager : MonoBehaviour
 {
-    public bool testing = true; // ! Delete this when done testing
+    private bool testing = true; // ! Delete this when done testing
+    private bool skipRounds = false; // ! Delete this when done testing
+    private int TEST_startingRound = 5; // ! Delete this when done testing
     Vector2 randomPosition = new Vector2();
     public EnemySpawner enemySpawner;
     private int round = 1;
@@ -18,6 +20,10 @@ public class RoundManager : MonoBehaviour
     void Start()
     {
         // ! This should be called after player presses Play so change it when added
+        if (testing && skipRounds)
+        {
+            round = TEST_startingRound;
+        }
         StartCoroutine(StartRoundCoroutine());
     }
 
@@ -61,6 +67,7 @@ public class RoundManager : MonoBehaviour
         uiManager.TextTable(round);
         yield return StartCoroutine(uiManager.FadeInText(uiManager.waveCountText, uiManager.centerText));
         colorManager.colorTable(round);
+        yield return new WaitForSeconds(2f);
         yield return StartCoroutine(uiManager.FadeOutText(uiManager.waveCountText, uiManager.centerText));
         StartCoroutine(StartRoundCoroutine());
     }
@@ -162,8 +169,8 @@ public class RoundManager : MonoBehaviour
 
                 break;
             case 5:
-                yield return Wait(5f);
-                // TODO: Add shop
+                yield return Wait(1f);
+                yield return StartCoroutine(uiManager.Shop());
                 break;
             default:
                 Debug.Log("Error: Invalid round number");

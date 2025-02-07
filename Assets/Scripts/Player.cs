@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour
     public ColorManager colorManager = new ColorManager();
     public float moveSpeed = 2;
     private bool canShoot = true;
+    public UIManager uiManager;
 
     // Start is called before the first frame update
     void Start()
@@ -77,7 +79,6 @@ public class Player : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, 0, -angle);
 
-        // Shooting
         if (canShoot && (horizontalInput != 0 || verticalInput != 0))
         {
             StartCoroutine(Shoot());
@@ -91,5 +92,49 @@ public class Player : MonoBehaviour
         bullet.rigidBody.AddForce(shooter.transform.up * 20f, ForceMode2D.Impulse);
         yield return new WaitForSeconds(1f); // ? Might need to adjust this
         canShoot = true;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "LeftShopCircle")
+        {
+            uiManager.upgradeSelected = true;
+            Debug.Log("Left upgrade selected");
+            UpgradePlayer("left");
+        }
+        else if (collision.gameObject.name == "RightShopCircle")
+        {
+            uiManager.upgradeSelected = true;
+            Debug.Log("Right upgrade selected");
+            UpgradePlayer("right");
+        }
+    }
+
+    private void UpgradePlayer(string side)
+    {
+        Debug.Log("UpgradePlayer called");
+        // TODO: Add all upgrades
+        if (side == "left")
+        {
+            switch (uiManager.leftShopText.text)
+            {
+                case "MOVE FASTER\nON BEAT":
+                    Debug.Log($"{uiManager.leftShopText.text} selected");
+                    break;
+                default:
+                    break;
+            }
+        }
+        else if (side == "right")
+        {
+            switch (uiManager.rightShopText.text)
+            {
+                case "SPLIT SHOT\nON SNARE":
+                    Debug.Log($"{uiManager.rightShopText.text} selected");
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
