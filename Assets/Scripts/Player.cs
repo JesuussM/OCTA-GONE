@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     public SpriteRenderer playerSprite => GetComponent<SpriteRenderer>();
     public Bullet bulletPrefab;
     public GameObject shooter;
+    public GameObject leftShooter;
+    public GameObject rightShooter;
     public ColorManager colorManager = new ColorManager();
     public float moveSpeed = 2;
     private bool canShoot = true;
@@ -19,6 +21,7 @@ public class Player : MonoBehaviour
     private bool splitShotOnSnareUpgrade = false;
     private bool moveFasterOnBeatUpgrade = false;
     private bool isMovementBoostActive = false;
+    private bool isSplitShotActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +54,12 @@ public class Player : MonoBehaviour
 
         shooter.transform.rotation = transform.rotation;
         shooter.transform.position = transform.position + transform.up * 0.38f;
+
+        leftShooter.transform.rotation = transform.rotation * Quaternion.Euler(0, 0, 45);
+        leftShooter.transform.position = transform.position + transform.up * 0.25f + transform.right * -0.25f;
+
+        rightShooter.transform.rotation = transform.rotation * Quaternion.Euler(0, 0, -45);
+        rightShooter.transform.position = transform.position + transform.up * 0.25f + transform.right * 0.25f;
     }
 
     public void Move()
@@ -96,9 +105,13 @@ public class Player : MonoBehaviour
     private IEnumerator Shoot()
     {
         canShoot = false;
+        if (splitShotOnSnareUpgrade && !isSplitShotActive)
+        {
+            StartCoroutine(SplitShot());
+        }
         Bullet bullet = Instantiate(bulletPrefab, shooter.transform.position, shooter.transform.rotation);
         bullet.rigidBody.AddForce(shooter.transform.up * 20f, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(1f); // ? Might need to adjust this
+        yield return new WaitForSeconds(1f);
         canShoot = true;
     }
 
@@ -151,5 +164,25 @@ public class Player : MonoBehaviour
         moveSpeed = 2;
         yield return new WaitForSeconds(0.25f);
         isMovementBoostActive = false;
+    }
+
+    private IEnumerator SplitShot()
+    {
+        isSplitShotActive = true;
+        leftShooter.SetActive(true);
+        rightShooter.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+
+        Bullet bullet1 = Instantiate(bulletPrefab, leftShooter.transform.position, leftShooter.transform.rotation);
+        bullet1.rigidBody.AddForce(leftShooter.transform.up * 20f, ForceMode2D.Impulse);
+
+        Bullet bullet2 = Instantiate(bulletPrefab, rightShooter.transform.position, rightShooter.transform.rotation);
+        bullet2.rigidBody.AddForce(rightShooter.transform.up * 20f, ForceMode2D.Impulse);
+
+        leftShooter.SetActive(false);
+        rightShooter.SetActive(false);
+
+        yield return new WaitForSeconds(1.5f);
+        isSplitShotActive = false;
     }
 }
