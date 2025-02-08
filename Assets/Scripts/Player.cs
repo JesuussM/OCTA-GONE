@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,6 +16,9 @@ public class Player : MonoBehaviour
     public float moveSpeed = 2;
     private bool canShoot = true;
     public UIManager uiManager;
+    private bool splitShotOnSnareUpgrade = false;
+    private bool moveFasterOnBeatUpgrade = false;
+    private bool isMovementBoostActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +58,10 @@ public class Player : MonoBehaviour
         Vector2 moveVector = new Vector2(moveJoystick.Horizontal, moveJoystick.Vertical);
         if (moveVector.magnitude >= .1f)
         {
+            if (moveFasterOnBeatUpgrade && !isMovementBoostActive)
+            {
+                StartCoroutine(MovementBoost());
+            }
             rigidBody.velocity = moveVector * moveSpeed;
             float angle = Mathf.Atan2(moveVector.y, moveVector.x) * Mathf.Rad2Deg;
 
@@ -99,27 +107,24 @@ public class Player : MonoBehaviour
         if (collision.gameObject.name == "LeftShopCircle")
         {
             uiManager.upgradeSelected = true;
-            Debug.Log("Left upgrade selected");
             UpgradePlayer("left");
         }
         else if (collision.gameObject.name == "RightShopCircle")
         {
             uiManager.upgradeSelected = true;
-            Debug.Log("Right upgrade selected");
             UpgradePlayer("right");
         }
     }
 
     private void UpgradePlayer(string side)
     {
-        Debug.Log("UpgradePlayer called");
         // TODO: Add all upgrades
         if (side == "left")
         {
             switch (uiManager.leftShopText.text)
             {
                 case "MOVE FASTER\nON BEAT":
-                    Debug.Log($"{uiManager.leftShopText.text} selected");
+                    moveFasterOnBeatUpgrade = true;
                     break;
                 default:
                     break;
@@ -130,11 +135,21 @@ public class Player : MonoBehaviour
             switch (uiManager.rightShopText.text)
             {
                 case "SPLIT SHOT\nON SNARE":
-                    Debug.Log($"{uiManager.rightShopText.text} selected");
+                    splitShotOnSnareUpgrade = true;
                     break;
                 default:
                     break;
             }
         }
+    }
+
+    private IEnumerator MovementBoost()
+    {
+        isMovementBoostActive = true;
+        moveSpeed = 5;
+        yield return new WaitForSeconds(0.25f);
+        moveSpeed = 2;
+        yield return new WaitForSeconds(0.25f);
+        isMovementBoostActive = false;
     }
 }
