@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour
     public Text rightShopText;
     public bool upgradeSelected = false;
     public Player player;
+    public GameObject blackOutEffect;
+    public GameObject staticEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -99,6 +101,21 @@ public class UIManager : MonoBehaviour
         }
         text.gameObject.SetActive(false);
         message.gameObject.SetActive(false);
+    }
+
+    public IEnumerator DisplayBlackOutEffect(float duration)
+    {
+        blackOutEffect.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        blackOutEffect.SetActive(false);
+    }
+
+    public IEnumerator DisplayStaticEffect(float duration, float transparency)
+    {
+        staticEffect.SetActive(true);
+        staticEffect.GetComponent<SpriteRenderer>().material.SetFloat("_Transparency", transparency);
+        yield return new WaitForSeconds(duration);
+        staticEffect.SetActive(false);
     }
 
     public IEnumerator Shop()

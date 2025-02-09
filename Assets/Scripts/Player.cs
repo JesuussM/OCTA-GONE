@@ -121,6 +121,7 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        //TODO: Add collision for enemy
         if (collision.gameObject.name == "LeftShopCircle")
         {
             uiManager.upgradeSelected = true;

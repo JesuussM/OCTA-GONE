@@ -6,7 +6,7 @@ using UnityEngine.XR;
 
 public class RoundManager : MonoBehaviour
 {
-    private bool testing = true; // ! Delete this when done testing
+    private bool testing = false; // ! Delete this when done testing
     private bool skipRounds = true; // ! Delete this when done testing
     private int TEST_startingRound = 4; // ! Delete this when done testing
     Vector2 randomPosition = new Vector2();
@@ -19,7 +19,7 @@ public class RoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (testing && skipRounds)
+        if (skipRounds)
         {
             round = TEST_startingRound;
         }
@@ -119,7 +119,7 @@ public class RoundManager : MonoBehaviour
                     EnemySpawner spawner10 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
                     StartCoroutine(HandleSpawner(spawner10, "fastEnemy", 7, 1f, randomPosition)); // 7
 
-                    // TODO: Screen goes black for half a second
+                    StartCoroutine(uiManager.DisplayBlackOutEffect(0.1f));
 
                     yield return new WaitForSeconds(1f);
                     EnemySpawner spawner11 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
@@ -141,13 +141,13 @@ public class RoundManager : MonoBehaviour
                     EnemySpawner spawner14 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
                     StartCoroutine(HandleSpawner(spawner14, "fastEnemy", 7, 1f, randomPosition)); // 7
 
-                    // TODO: Screen gets static-y for a second
+                    StartCoroutine(uiManager.DisplayStaticEffect(0.3f, 0.15f));
 
                     yield return new WaitForSeconds(6f);
                     EnemySpawner spawner15 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
                     yield return StartCoroutine(HandleSpawner(spawner15, "baseEnemy", 4, 1f, randomPosition)); // 4
 
-                    // TODO: Screen gets static-y for a second
+                    StartCoroutine(uiManager.DisplayStaticEffect(0.5f, 0.20f));
 
                     break;
                 case 5:
