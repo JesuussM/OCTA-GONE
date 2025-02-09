@@ -18,6 +18,9 @@ public class UIManager : MonoBehaviour
     public Player player;
     public GameObject blackOutEffect;
     public GameObject staticEffect;
+    public GameObject skullEffect;
+    public GameObject textEffectBackground;
+    public Text textEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -118,6 +121,23 @@ public class UIManager : MonoBehaviour
         staticEffect.SetActive(false);
     }
 
+    public IEnumerator DisplaySkullEffect(float duration)
+    {
+        skullEffect.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        skullEffect.SetActive(false);
+    }
+
+    public IEnumerator DisplayTextEffect(string message, float duration)
+    {
+        textEffect.text = message;
+        textEffectBackground.SetActive(true);
+        textEffect.gameObject.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        textEffect.gameObject.SetActive(false);
+        textEffectBackground.SetActive(false);
+    }
+
     public IEnumerator Shop()
     {
         yield return StartCoroutine(player.MovePlayerInShop());
@@ -166,15 +186,35 @@ public class UIManager : MonoBehaviour
             case 3:
             case 4:
                 UpdateTopText("W A V E  " + round);
-                UpdateCenterText("W A V E   C O M P L E T E ");
+                UpdateCenterText("W A V E   C O M P L E T E");
                 break;
             case 5:
                 UpdateTopText("SHOP");
-                UpdateCenterText("W A V E   C O M P L E T E ");
+                UpdateCenterText("W A V E   C O M P L E T E");
+                break;
+            case 6:
+                UpdateTopText("W A V E  " + round);
+                UpdateCenterText("A  W I S E  C H O I C E");
+                break;
+            case 7:
+                UpdateTopText("R A V E  " + round);
+                UpdateCenterText("R A V E   C O M P L E T E");
+                break;
+            case 8:
+                UpdateTopText("W A V E  " + round);
+                UpdateCenterText("W A V E   D E L E T E");
+                break;
+            case 9:
+                UpdateTopText("W A V E  " + round);
+                UpdateCenterText("A N O T H E R   W A V E");
+                break;
+            case 10:
+                UpdateTopText("SHOP");
+                UpdateCenterText("W A V E   C O M P L E T E");
                 break;
             default:
                 UpdateTopText("W A V E  E R R O R");
-                UpdateCenterText("E N D  R E A C H E D ");
+                UpdateCenterText("E N D  R E A C H E D");
                 break;
         }
     }

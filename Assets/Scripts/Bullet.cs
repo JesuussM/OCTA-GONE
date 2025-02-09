@@ -43,7 +43,6 @@ public class Bullet : MonoBehaviour
             else
             {
                 Destroy(collision.gameObject);
-                Destroy(bullet);
                 uiManager.UpdateScore(collision.gameObject.GetComponent<Enemy>().points);
 
                 var instantiatedAnimation = Instantiate(enemyDeathAnimation, collision.gameObject.transform.position, collision.gameObject.transform.rotation * Quaternion.Euler(0, 0, 90));
@@ -54,6 +53,7 @@ public class Bullet : MonoBehaviour
                 
                 // TODO: Add sound effect
             }
+            Destroy(bullet);
         }
     }
 }
