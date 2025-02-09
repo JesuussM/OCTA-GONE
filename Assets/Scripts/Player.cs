@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class Player : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class Player : MonoBehaviour
     public UIManager uiManager;
     private bool splitShotOnSnareUpgrade = false;
     private bool moveFasterOnBeatUpgrade = false;
+    private bool movementSpeedUpgrade = false;
+    private bool fireOnOffBeatUpgrade = false;
     private bool isMovementBoostActive = false;
     private bool isSplitShotActive = false;
 
@@ -125,12 +128,12 @@ public class Player : MonoBehaviour
         if (collision.gameObject.name == "LeftShopCircle")
         {
             uiManager.upgradeSelected = true;
-            UpgradePlayer("left");
+            StartCoroutine(UpgradePlayer("left"));
         }
         else if (collision.gameObject.name == "RightShopCircle")
         {
             uiManager.upgradeSelected = true;
-            UpgradePlayer("right");
+            StartCoroutine(UpgradePlayer("right"));
         }
     }
 
@@ -147,8 +150,9 @@ public class Player : MonoBehaviour
         canMove = true;
     }
 
-    private void UpgradePlayer(string side)
+    private IEnumerator UpgradePlayer(string side)
     {
+        yield return StartCoroutine(uiManager.FadeOutText(uiManager.leftShopText, uiManager.rightShopText));
         // TODO: Add all upgrades
         if (side == "left")
         {
@@ -156,6 +160,14 @@ public class Player : MonoBehaviour
             {
                 case "MOVE FASTER\nON BEAT":
                     moveFasterOnBeatUpgrade = true;
+                    uiManager.leftShopText.text = "INCREASE\nMOVEMENT SPEED";
+                    break;
+                case "INCREASE\nMOVEMENT SPEED":
+                    movementSpeedUpgrade = true;
+                    uiManager.leftShopText.text = "DIE";
+                    break;
+                case "DIE":
+                    // TODO: Add Game Over
                     break;
                 default:
                     break;
@@ -167,6 +179,14 @@ public class Player : MonoBehaviour
             {
                 case "SPLIT SHOT\nON SNARE":
                     splitShotOnSnareUpgrade = true;
+                    uiManager.rightShopText.text = "FIRE ON\nOFF-BEAT";
+                    break;
+                case "FIRE ON\nOFF-BEAT":
+                    fireOnOffBeatUpgrade = true;
+                    uiManager.rightShopText.text = "DIE";
+                    break;
+                case "DIE":
+                    // TODO: Add Game Over
                     break;
                 default:
                     break;

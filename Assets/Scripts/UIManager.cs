@@ -163,7 +163,6 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine(FadeOutText(leftShopText, rightShopText));
         StartCoroutine(FadeOutText(waveCountText, centerText));
         for (float t = 0.0f; t < 0.5f; t += Time.deltaTime)
         {
@@ -175,7 +174,7 @@ public class UIManager : MonoBehaviour
         rightShopCircle.SetActive(false);
 
         upgradeSelected = false;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
     }
     public void TextTable(int round) 
     {
