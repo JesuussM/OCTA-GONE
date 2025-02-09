@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public ColorManager colorManager = new ColorManager();
     public float moveSpeed = 2;
     private bool canShoot = true;
+    private bool canMove = true;
     public UIManager uiManager;
     private bool splitShotOnSnareUpgrade = false;
     private bool moveFasterOnBeatUpgrade = false;
@@ -65,21 +66,24 @@ public class Player : MonoBehaviour
     public void Move()
     {
         Vector2 moveVector = new Vector2(moveJoystick.Horizontal, moveJoystick.Vertical);
-        if (moveVector.magnitude >= .1f)
+        if (canMove)
         {
-            if (moveFasterOnBeatUpgrade && !isMovementBoostActive)
+            if (moveVector.magnitude >= .1f)
             {
-                StartCoroutine(MovementBoost());
-            }
-            rigidBody.velocity = moveVector * moveSpeed;
-            float angle = Mathf.Atan2(moveVector.y, moveVector.x) * Mathf.Rad2Deg;
+                if (moveFasterOnBeatUpgrade && !isMovementBoostActive)
+                {
+                    StartCoroutine(MovementBoost());
+                }
+                rigidBody.velocity = moveVector * moveSpeed;
+                float angle = Mathf.Atan2(moveVector.y, moveVector.x) * Mathf.Rad2Deg;
 
-            // ? Maybe add particles to trail behind 
-            // ? (probably not until later)
-        }
-        else
-        {
-            rigidBody.velocity = Vector2.zero;
+                // ? Maybe add particles to trail behind 
+                // ? (probably not until later)
+            }
+            else
+            {
+                rigidBody.velocity = Vector2.zero;
+            }
         }
     }
 
@@ -127,6 +131,19 @@ public class Player : MonoBehaviour
             uiManager.upgradeSelected = true;
             UpgradePlayer("right");
         }
+    }
+
+    public IEnumerator MovePlayerInShop()
+    {
+        canMove = false;
+        Vector2 initialPosition = transform.position;
+        Vector2 targetPosition = new Vector2(0, -1.7f);
+        for (float t = 0.0f; t < 1f; t += Time.deltaTime)
+        {
+            transform.position = Vector2.Lerp(initialPosition, targetPosition, t);
+            yield return null;
+        }
+        canMove = true;
     }
 
     private void UpgradePlayer(string side)

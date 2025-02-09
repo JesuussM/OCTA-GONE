@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     public GameObject rightShopCircle;
     public Text rightShopText;
     public bool upgradeSelected = false;
+    public Player player;
 
     // Start is called before the first frame update
     void Start()
@@ -102,6 +103,7 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator Shop()
     {
+        yield return StartCoroutine(player.MovePlayerInShop());
         SpriteRenderer leftShopSprite = leftShopCircle.GetComponent<SpriteRenderer>();
         SpriteRenderer rightShopSprite = rightShopCircle.GetComponent<SpriteRenderer>();
         leftShopCircle.SetActive(true);

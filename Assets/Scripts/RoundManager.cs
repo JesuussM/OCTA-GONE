@@ -8,7 +8,7 @@ public class RoundManager : MonoBehaviour
 {
     private bool testing = true; // ! Delete this when done testing
     private bool skipRounds = true; // ! Delete this when done testing
-    private int TEST_startingRound = 5; // ! Delete this when done testing
+    private int TEST_startingRound = 4; // ! Delete this when done testing
     Vector2 randomPosition = new Vector2();
     public EnemySpawner enemySpawner;
     private int round = 1;

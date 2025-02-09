@@ -7,6 +7,8 @@ public class ColorManager : MonoBehaviour
 {
     public SpriteRenderer player;
     public SpriteRenderer shooter;
+    public SpriteRenderer leftShooter;
+    public SpriteRenderer rightShooter;
     public SpriteRenderer bullet;
     public SpriteRenderer enemyDeathAnimation;
     public Camera mainCamera;
@@ -26,6 +28,8 @@ public class ColorManager : MonoBehaviour
     {
         player.color = new Color(.5281104f, .6454683f, .7490194f, 1f); // light blue
         shooter.color = new Color(25/255f, 20/255f, 10/255f, 1f); // black
+        leftShooter.color = new Color(25/255f, 20/255f, 10/255f, 1f); // black
+        rightShooter.color = new Color(25/255f, 20/255f, 10/255f, 1f); // black
         bullet.color = new Color(161/255f, 160/255f, 167/255f, 1f); // lighter grey
         enemyDeathAnimation.color = new Color(161/255f, 160/255f, 167/255f, 1f); // lighter grey
 
@@ -54,6 +58,8 @@ public class ColorManager : MonoBehaviour
             case 2:
                 StartCoroutine(TransitionColor(player, new Color(152/255f, 152/255f, 181/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(shooter, new Color(25/255f, 20/255f, 10/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(leftShooter, new Color(25/255f, 20/255f, 10/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(rightShooter, new Color(25/255f, 20/255f, 10/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(bullet, new Color(145/255f, 151/255f, 174/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(enemyDeathAnimation, new Color(145/255f, 151/255f, 174/255f, 1f), 2f));
                 
@@ -69,6 +75,8 @@ public class ColorManager : MonoBehaviour
             case 3:
                 StartCoroutine(TransitionColor(player, new Color(205/255f, 188/255f, 34/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(shooter, new Color(25/255f, 20/255f, 10/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(leftShooter, new Color(25/255f, 20/255f, 10/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(rightShooter, new Color(25/255f, 20/255f, 10/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(bullet, new Color(25/255f, 20/255f, 10/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(enemyDeathAnimation, new Color(25/255f, 20/255f, 10/255f, 1f), 2f));
 
@@ -85,6 +93,8 @@ public class ColorManager : MonoBehaviour
             case 4:
                 StartCoroutine(TransitionColor(player, new Color(205/255f, 187/255f, 170/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(shooter, new Color(32/255f, 21/255f, 18/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(leftShooter, new Color(32/255f, 21/255f, 18/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(rightShooter, new Color(32/255f, 21/255f, 18/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(bullet, new Color(32/255f, 21/255f, 18/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(enemyDeathAnimation, new Color(32/255f, 21/255f, 18/255f, 1f), 2f));
 
@@ -101,6 +111,8 @@ public class ColorManager : MonoBehaviour
             case 5:
                 StartCoroutine(TransitionColor(player, new Color(157/225f, 186/255f, 217/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(shooter, new Color(120/255f, 134/255f, 155/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(leftShooter, new Color(120/255f, 134/255f, 155/255f, 1f), 2f));
+                StartCoroutine(TransitionColor(rightShooter, new Color(120/255f, 134/255f, 155/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(bullet, new Color(161/255f, 160/255f, 167/255f, 1f), 2f));
                 StartCoroutine(TransitionColor(enemyDeathAnimation, new Color(161/255f, 160/255f, 167/255f, 1f), 2f));
 
