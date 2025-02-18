@@ -23,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
         
     }
 
-    public IEnumerator SpawnEnemies(string enemyType, int amount, float delay, Vector2 position) 
+    public IEnumerator SpawnEnemies(string enemyType, int amount, Vector2 position) 
     {
         yield return new WaitForSeconds(2f);
         switch (enemyType)
@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
                 {   
                     GameObject enemy = Instantiate(baseEnemy, position, Quaternion.identity);
                     StartCoroutine(EnemySpawnAnimation(enemy));
-                    yield return new WaitForSeconds(delay);
+                    yield return new WaitForSeconds(1.5f);
                 }
                 break;
             case "fastEnemy":
@@ -41,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
                 {
                     GameObject enemy = Instantiate(fastEnemy, position, Quaternion.identity);
                     StartCoroutine(EnemySpawnAnimation(enemy));
-                    yield return new WaitForSeconds(delay);
+                    yield return new WaitForSeconds(0.5f);
                 }
                 break;
             case "tankEnemy":
@@ -49,7 +49,7 @@ public class EnemySpawner : MonoBehaviour
                 {
                     GameObject enemy = Instantiate(tankEnemy, position, Quaternion.identity);
                     StartCoroutine(EnemySpawnAnimation(enemy));
-                    yield return new WaitForSeconds(delay);
+                    yield return new WaitForSeconds(1);
                 }
                 break;
             case "sentryEnemy":
@@ -57,7 +57,7 @@ public class EnemySpawner : MonoBehaviour
                 {
                     GameObject enemy = Instantiate(sentryEnemy, position, Quaternion.identity);
                     StartCoroutine(EnemySpawnAnimation(enemy));
-                    yield return new WaitForSeconds(delay);
+                    yield return new WaitForSeconds(1);
                 }
                 break;
             default:
@@ -84,7 +84,7 @@ public class EnemySpawner : MonoBehaviour
             sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1.0f - t * 2);
             yield return null;
         }
-        Destroy(enemySpawner);
+        Destroy(enemySpawner.gameObject);
     }
 
     private IEnumerator EnemySpawnAnimation(GameObject enemy)
