@@ -178,38 +178,73 @@ public class UIManager : MonoBehaviour
     }
     public void TextTable(int round) 
     {
-        // TODO: Add the text changes for the rest of the rounds
         switch (round)
         {
             case 2:
             case 3:
             case 4:
-                UpdateTopText("W A V E  " + round);
+            case 6:
+                UpdateTopText($"W A V E  {round}");
                 UpdateCenterText("W A V E   C O M P L E T E");
                 break;
             case 5:
-                UpdateTopText("SHOP");
-                UpdateCenterText("W A V E   C O M P L E T E");
-                break;
-            case 6:
-                UpdateTopText("W A V E  " + round);
-                UpdateCenterText("A  W I S E  C H O I C E");
-                break;
-            case 7:
-                UpdateTopText("R A V E  " + round);
-                UpdateCenterText("R A V E   C O M P L E T E");
-                break;
-            case 8:
-                UpdateTopText("W A V E  " + round);
-                UpdateCenterText("W A V E   D E L E T E");
-                break;
-            case 9:
-                UpdateTopText("W A V E  " + round);
-                UpdateCenterText("A N O T H E R   W A V E");
-                break;
             case 10:
                 UpdateTopText("SHOP");
                 UpdateCenterText("W A V E   C O M P L E T E");
+                break;
+            case 7:
+                UpdateTopText($"R A V E  {round}");
+                UpdateCenterText("R A V E   C O M P L E T E");
+                break;
+            case 8:
+                UpdateTopText($"W A V E  {round}");
+                UpdateCenterText("W A V E   D E L E T E");
+                break;
+            case 9:
+                UpdateTopText($"W A V E  {round}");
+                UpdateCenterText("A N O T H E R   W A V E");
+                break;
+            case 11:
+            case 12:
+            case 13:
+                UpdateTopText($"W A V E  {round}");
+                UpdateCenterText("G O O D  L U C K");
+                break;
+            case 14:
+                UpdateTopText($"W A V E  {round}");
+                UpdateCenterText("J O I N  M E");
+                break;
+            case 15:
+                UpdateTopText("G E T  O U T");
+                UpdateCenterText("G E T  O U T");
+                break;
+            case 16:
+            case 21:
+                UpdateTopText("W A V E  1 666666");
+                UpdateCenterText("Y O U  C O U L D  H A V E  E S C A P E D");
+                break;
+            case 17:
+            case 22:
+                UpdateTopText($"W A V E  {round}");
+                UpdateCenterText("W A V E  V I O L A T I O N");
+                break;
+            case 18:
+            case 23:
+                UpdateTopText("W A A A  A A");
+                UpdateCenterText("W A A A  A A A A A A A\nA");
+                break;
+            case 19:
+            case 24:
+                UpdateTopText("string waveCount = $\"W A V E  {int XX}\"");
+                UpdateCenterText("W_  C_");
+                break;
+            case 20:
+                UpdateTopText("Execute(wave.Upgrades());");
+                UpdateCenterText("E N D  O F  W A V E");
+                break;
+            case 25: 
+                UpdateTopText("D I E");
+                UpdateCenterText("D I E");
                 break;
             default:
                 UpdateTopText("W A V E  E R R O R");
