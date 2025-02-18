@@ -7,6 +7,9 @@ using UnityEngine.Android;
 
 public class Player : MonoBehaviour
 {
+    // TODO: Add player health and use it to end the game. When the player health is <= 0, 
+    // TODO: play death animation and then show game over. If a die upgrade is selected then 
+    // TODO: skip the animation and play the game ending scene.
     public FixedJoystick moveJoystick;
     public FixedJoystick aimJoystick;
     public Rigidbody2D rigidBody;
@@ -117,8 +120,8 @@ public class Player : MonoBehaviour
             StartCoroutine(SplitShot());
         }
         Bullet bullet = Instantiate(bulletPrefab, shooter.transform.position, shooter.transform.rotation);
-        bullet.rigidBody.AddForce(shooter.transform.up * 20f, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(fireOnOffBeatUpgrade ? 0.33f : 1f);
+        bullet.rigidBody.AddForce(shooter.transform.up * 8f, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(fireOnOffBeatUpgrade ? 0.33f : 0.5f);
         canShoot = true;
     }
 
@@ -208,18 +211,25 @@ public class Player : MonoBehaviour
         isSplitShotActive = true;
         leftShooter.SetActive(true);
         rightShooter.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
 
         Bullet bullet1 = Instantiate(bulletPrefab, leftShooter.transform.position, leftShooter.transform.rotation);
-        bullet1.rigidBody.AddForce(leftShooter.transform.up * 20f, ForceMode2D.Impulse);
+        bullet1.rigidBody.AddForce(leftShooter.transform.up * 8f, ForceMode2D.Impulse);
 
         Bullet bullet2 = Instantiate(bulletPrefab, rightShooter.transform.position, rightShooter.transform.rotation);
-        bullet2.rigidBody.AddForce(rightShooter.transform.up * 20f, ForceMode2D.Impulse);
+        bullet2.rigidBody.AddForce(rightShooter.transform.up * 8f, ForceMode2D.Impulse);
 
+        if (fireOnOffBeatUpgrade)
+        {
+            yield return new WaitForSeconds(0.25f);
+             Bullet bullet3 = Instantiate(bulletPrefab, leftShooter.transform.position, leftShooter.transform.rotation);
+            bullet3.rigidBody.AddForce(leftShooter.transform.up * 8f, ForceMode2D.Impulse);
+
+            Bullet bullet4 = Instantiate(bulletPrefab, rightShooter.transform.position, rightShooter.transform.rotation);
+            bullet4.rigidBody.AddForce(rightShooter.transform.up * 8f, ForceMode2D.Impulse);
+        }
+        yield return new WaitForSeconds(1.25f);
         leftShooter.SetActive(false);
         rightShooter.SetActive(false);
-
-        yield return new WaitForSeconds(1.5f);
         isSplitShotActive = false;
     }
 
