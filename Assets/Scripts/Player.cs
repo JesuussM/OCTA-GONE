@@ -20,10 +20,10 @@ public class Player : MonoBehaviour
     private bool canShoot = true;
     private bool canMove = true;
     public UIManager uiManager;
-    private bool splitShotOnSnareUpgrade = false;
-    private bool moveFasterOnBeatUpgrade = false;
-    private bool movementSpeedUpgrade = false;
-    private bool fireOnOffBeatUpgrade = false;
+    public bool splitShotOnSnareUpgrade = false;
+    public bool moveFasterOnBeatUpgrade = false;
+    public bool movementSpeedUpgrade = false;
+    public bool fireOnOffBeatUpgrade = false;
     private bool isMovementBoostActive = false;
     private bool isSplitShotActive = false;
 
@@ -118,7 +118,7 @@ public class Player : MonoBehaviour
         }
         Bullet bullet = Instantiate(bulletPrefab, shooter.transform.position, shooter.transform.rotation);
         bullet.rigidBody.AddForce(shooter.transform.up * 20f, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(fireOnOffBeatUpgrade ? 0.33f : 1f);
         canShoot = true;
     }
 
@@ -153,7 +153,6 @@ public class Player : MonoBehaviour
     private IEnumerator UpgradePlayer(string side)
     {
         yield return StartCoroutine(uiManager.FadeOutText(uiManager.leftShopText, uiManager.rightShopText));
-        // TODO: Add all upgrades
         if (side == "left")
         {
             switch (uiManager.leftShopText.text)
@@ -167,7 +166,7 @@ public class Player : MonoBehaviour
                     uiManager.leftShopText.text = "DIE";
                     break;
                 case "DIE":
-                    // TODO: Add Game Over
+                    // TODO: Add game over screen
                     break;
                 default:
                     break;
@@ -186,7 +185,7 @@ public class Player : MonoBehaviour
                     uiManager.rightShopText.text = "DIE";
                     break;
                 case "DIE":
-                    // TODO: Add Game Over
+                    // TODO: Add game over screen
                     break;
                 default:
                     break;
@@ -197,9 +196,9 @@ public class Player : MonoBehaviour
     private IEnumerator MovementBoost()
     {
         isMovementBoostActive = true;
-        moveSpeed = 5;
+        moveSpeed = 4;
         yield return new WaitForSeconds(0.25f);
-        moveSpeed = 2;
+        moveSpeed = movementSpeedUpgrade ? 3 : 2;
         yield return new WaitForSeconds(0.25f);
         isMovementBoostActive = false;
     }
@@ -223,4 +222,5 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         isSplitShotActive = false;
     }
+
 }
