@@ -25,4 +25,6 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Play button clicked");
         SceneManager.LoadScene("PlayingScene");
     }
+
+    // ! It is possible I need to add a reset function here to reset the score and other variables
 }

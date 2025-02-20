@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public Text waveCountText;
     public Text centerText;
     public int score;
+    public static int finalScore;
     public GameObject leftShopCircle;
     public Text leftShopText;
     public GameObject rightShopCircle;
@@ -26,7 +27,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         score = 0;
-        scoreText.text = score.ToString();
+        scoreText.text = score.ToString("N0");
         waveCountText.gameObject.SetActive(false);
         centerText.gameObject.SetActive(false);
     }
@@ -34,13 +35,13 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        finalScore = score;
     }
 
     public void UpdateScore(int points)
     {
         score += points;
-        scoreText.text = score.ToString();
+        scoreText.text = score.ToString("N0");
         StartCoroutine(ScoreGainAnimation());
     }
 

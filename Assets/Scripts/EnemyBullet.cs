@@ -33,8 +33,6 @@ public class EnemyBullet : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Destroy(enemyBullet);
-            Debug.Log("Player hit by enemy bullet");
-            // TODO: Subtract 1 from player health
         }
     }
 }

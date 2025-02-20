@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.VisualScripting;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Android;
 
 public class Player : MonoBehaviour
 {
-    // TODO: Add player health and use it to end the game. When the player health is <= 0, 
-    // TODO: play death animation and then show game over. If a die upgrade is selected then 
-    // TODO: skip the animation and play the game ending scene.
     public FixedJoystick moveJoystick;
     public FixedJoystick aimJoystick;
     public Rigidbody2D rigidBody;
@@ -127,7 +125,6 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        //TODO: Add collision for enemy
         if (collision.gameObject.name == "LeftShopCircle")
         {
             uiManager.upgradeSelected = true;
@@ -138,6 +135,21 @@ public class Player : MonoBehaviour
             uiManager.upgradeSelected = true;
             StartCoroutine(UpgradePlayer("right"));
         }
+
+        // ! Uncomment when game is finished
+        // switch (collision.gameObject.name)
+        // {
+        //     case "BaseEnemy(Clone)":
+        //     case "FastEnemy(Clone)":
+        //     case "TankEnemy(Clone)":
+        //     case "SentryEnemy(Clone)":
+        //     case "SentryBullet(Clone)":
+                 // TODO: Add death animation
+        //         UnityEngine.SceneManagement.SceneManager.LoadScene(3);
+        //         break;
+        //     default:
+        //         break;
+        // }
     }
 
     public IEnumerator MovePlayerInShop()
@@ -169,7 +181,9 @@ public class Player : MonoBehaviour
                     uiManager.leftShopText.text = "DIE";
                     break;
                 case "DIE":
-                    // TODO: Add game over screen
+                    uiManager.UpdateCenterText("");
+                    uiManager.UpdateTopText("");
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(4);
                     break;
                 default:
                     break;
@@ -188,7 +202,9 @@ public class Player : MonoBehaviour
                     uiManager.rightShopText.text = "DIE";
                     break;
                 case "DIE":
-                    // TODO: Add game over screen
+                    uiManager.UpdateCenterText("");
+                    uiManager.UpdateTopText("");
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(4);
                     break;
                 default:
                     break;
