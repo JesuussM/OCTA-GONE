@@ -10,6 +10,7 @@ public class EndingScreen : MonoBehaviour
 {
     public Text endingText;
     public VideoPlayer videoPlayer;
+    public AudioClip endingMusic;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,8 @@ public class EndingScreen : MonoBehaviour
 
     private IEnumerator Ending()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
+        SoundManager.instance.PlaySound(endingMusic, 0.5f);
         endingText.gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
         endingText.gameObject.SetActive(false);

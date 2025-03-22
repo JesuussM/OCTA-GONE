@@ -11,6 +11,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject fastEnemy;
     public GameObject tankEnemy;
     public GameObject sentryEnemy;
+    public AudioClip spawnSfx;
     // Start is called before the first frame update
     void Start()
     {
@@ -95,6 +96,7 @@ public class EnemySpawner : MonoBehaviour
 
         Vector2 initialScale = enemy.transform.localScale;
         enemy.transform.localScale = Vector2.zero;
+        SoundManager.instance.PlaySound(spawnSfx, 0.5f);
         for (float t = 0.0f; t < 0.5f; t += Time.deltaTime)
         {
             enemy.transform.localScale = Vector2.Lerp(Vector2.zero, initialScale, t * 2);

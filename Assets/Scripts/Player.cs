@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
     private bool canShoot = true;
     private bool canMove = true;
     public UIManager uiManager;
+    public AudioClip shootSfx;
+    public AudioClip deathSfx;
+    public AudioClip upgradeSfx;
     public bool splitShotOnSnareUpgrade = false;
     public bool moveFasterOnBeatUpgrade = false;
     public bool movementSpeedUpgrade = false;
@@ -119,6 +122,7 @@ public class Player : MonoBehaviour
         }
         Bullet bullet = Instantiate(bulletPrefab, shooter.transform.position, shooter.transform.rotation);
         bullet.rigidBody.AddForce(shooter.transform.up * 8f, ForceMode2D.Impulse);
+        SoundManager.instance.PlaySound(shootSfx, .5f);
         yield return new WaitForSeconds(fireOnOffBeatUpgrade ? 0.33f : 0.5f);
         canShoot = true;
     }
@@ -128,28 +132,35 @@ public class Player : MonoBehaviour
         if (collision.gameObject.name == "LeftShopCircle")
         {
             uiManager.upgradeSelected = true;
+            SoundManager.instance.PlaySound(upgradeSfx, 0.5f);
             StartCoroutine(UpgradePlayer("left"));
         }
         else if (collision.gameObject.name == "RightShopCircle")
         {
             uiManager.upgradeSelected = true;
+            SoundManager.instance.PlaySound(upgradeSfx, 0.5f);
             StartCoroutine(UpgradePlayer("right"));
         }
 
+        // ! This is the enemy collision detection
         // ! Uncomment when game is finished
-        // switch (collision.gameObject.name)
-        // {
-        //     case "BaseEnemy(Clone)":
-        //     case "FastEnemy(Clone)":
-        //     case "TankEnemy(Clone)":
-        //     case "SentryEnemy(Clone)":
-        //     case "SentryBullet(Clone)":
-                 // TODO: Add death animation
-        //         UnityEngine.SceneManagement.SceneManager.LoadScene(3);
-        //         break;
-        //     default:
-        //         break;
-        // }
+        switch (collision.gameObject.name)
+        {
+            case "BaseEnemy(Clone)":
+            case "FastEnemy(Clone)":
+            case "TankEnemy(Clone)":
+            case "SentryEnemy(Clone)":
+            case "SentryBullet(Clone)":
+                SoundManager.instance.FadeOutMusic(SoundManager.instance.musicSource);
+                SoundManager.instance.musicSource.Stop();
+                SoundManager.instance.PlaySound(deathSfx, 0.5f);
+                // TODO: Add death animation, (yield return it)
+                
+                UnityEngine.SceneManagement.SceneManager.LoadScene(4);
+                break;
+            default:
+                break;
+        }
     }
 
     public IEnumerator MovePlayerInShop()

@@ -32,7 +32,6 @@ public class ColorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player.color = new Color(.5281104f, .6454683f, .7490194f, 1f); // light blue
         shooter.color = new Color(25/255f, 20/255f, 10/255f, 1f); // black
         leftShooter.color = new Color(25/255f, 20/255f, 10/255f, 1f); // black
         rightShooter.color = new Color(25/255f, 20/255f, 10/255f, 1f); // black

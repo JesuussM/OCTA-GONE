@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
     public GameObject skullEffect;
     public GameObject textEffectBackground;
     public Text textEffect;
+    private Coroutine scoreAnimationCoroutine;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +43,12 @@ public class UIManager : MonoBehaviour
     {
         score += points;
         scoreText.text = score.ToString("N0");
-        StartCoroutine(ScoreGainAnimation());
+        
+        if (scoreAnimationCoroutine != null)
+        {
+            StopCoroutine(scoreAnimationCoroutine);
+        }
+        scoreAnimationCoroutine = StartCoroutine(ScoreGainAnimation());
     }
 
     private IEnumerator ScoreGainAnimation()
@@ -67,6 +73,7 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
         scoreText.transform.localScale = initialScale;
+        scoreAnimationCoroutine = null;
     }
 
     public void UpdateTopText(string topText)

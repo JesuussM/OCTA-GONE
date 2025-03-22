@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
     public Rigidbody2D rigidBody;
     public SpriteRenderer bulletSprite => GetComponent<SpriteRenderer>();
     public GameObject enemyDeathAnimation;
+    public AudioClip bullethitSfx;
+    public AudioClip destroySfx;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +32,7 @@ public class Bullet : MonoBehaviour
             collision.gameObject.name == "Right Boundary")
         {
             Destroy(bullet);
-            // TODO: Add animation and sound effect
+            SoundManager.instance.PlaySound(bullethitSfx, 0.25f);
         }
 
         if (collision.gameObject.tag == "Enemy")
@@ -39,6 +41,7 @@ public class Bullet : MonoBehaviour
             if (collision.gameObject.GetComponent<Enemy>().health > 1)
             {
                 collision.gameObject.GetComponent<Enemy>().health--;
+                 SoundManager.instance.PlaySound(bullethitSfx, 0.25f);
             }
             else
             {
@@ -51,7 +54,7 @@ public class Bullet : MonoBehaviour
                 float clipLength = clipInfo[0].clip.length;
                 Destroy(instantiatedAnimation, clipLength);
                 
-                // TODO: Add sound effect
+                 SoundManager.instance.PlaySound(destroySfx, 0.5f);
             }
             Destroy(bullet);
         }

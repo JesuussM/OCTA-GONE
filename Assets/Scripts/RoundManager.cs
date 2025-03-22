@@ -6,14 +6,18 @@ using UnityEngine.XR;
 
 public class RoundManager : MonoBehaviour
 {
-    private bool testing = false; // ! Delete this when done testing
-    private bool skipRounds = false; // ! Delete this when done testing
-    private int TEST_startingRound = 13; // ! Delete this when done testing
+    private bool testing = false;
+    private bool skipRounds = true;
+    private int TEST_startingRound = 20;
     Vector2 randomPosition = new Vector2();
     public EnemySpawner enemySpawner;
     private int round = 1;
     public ColorManager colorManager;
     public UIManager uiManager;
+    public AudioClip gameplayMusic;
+    public AudioClip highPitchSfx;
+    public AudioClip thudSfx;
+    public AudioClip waveChangeSfx;
 
 
     // Start is called before the first frame update
@@ -23,8 +27,17 @@ public class RoundManager : MonoBehaviour
         {
             round = TEST_startingRound;
         }
-        // ! This should be called after player presses Play so change it when added
+
+        StartCoroutine(PlayGameplayMusic());
         StartCoroutine(StartRoundCoroutine());
+    }
+
+    private IEnumerator PlayGameplayMusic()
+    {
+        yield return StartCoroutine(SoundManager.instance.FadeOutMusic(SoundManager.instance.musicSource));
+        SoundManager.instance.PlayMusic(gameplayMusic, 0f);
+        SoundManager.instance.musicSource.loop = true;
+        yield return StartCoroutine(SoundManager.instance.FadeInMusic(SoundManager.instance.musicSource));
     }
 
     // Update is called once per frame
@@ -44,13 +57,10 @@ public class RoundManager : MonoBehaviour
     {
         while (GameObject.FindGameObjectsWithTag("Enemy").Length > 0)
         {
-            // ? Maybe add an enemies left counter after some time
-            // ? Might need a total number of enemies for the round then
-            // ? when there are 10 left start displaying it
-            // Debug.Log("Enemies left: " + GameObject.FindGameObjectsWithTag("Enemy").Length);
             yield return new WaitForSeconds(1f);
         }
         round++;
+        SoundManager.instance.PlaySound(waveChangeSfx, 0.5f);
         uiManager.TextTable(round);
         yield return StartCoroutine(uiManager.FadeInText(uiManager.waveCountText, uiManager.centerText));
         colorManager.colorTable(round);
@@ -125,6 +135,10 @@ public class RoundManager : MonoBehaviour
                     yield return StartCoroutine(HandleSpawner(spawner11, "baseEnemy", 4, randomPosition));
 
                     // ? Music cuts out for a second
+                    // ! Test if  works
+                    SoundManager.instance.musicSource.Pause();
+                    yield return new WaitForSeconds(1f);
+                    SoundManager.instance.musicSource.UnPause();
 
                     break;
                 case 4:
@@ -162,7 +176,7 @@ public class RoundManager : MonoBehaviour
                     EnemySpawner spawner17 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
                     StartCoroutine(HandleSpawner(spawner17, "fastEnemy", 7, randomPosition));
 
-                    // ? High pitch sound effect
+                    SoundManager.instance.PlaySound(highPitchSfx, 0.5f);
 
                     yield return new WaitForSeconds(7f);
                     EnemySpawner spawner18 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
@@ -451,6 +465,8 @@ public class RoundManager : MonoBehaviour
 
                     yield return new WaitForSeconds(2f);
                     // ? Loud thud sound effect
+                    // ! Test if works
+                    SoundManager.instance.PlaySound(thudSfx, 0.5f);
 
                     yield return new WaitForSeconds(1f);
                     EnemySpawner spawner81 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
@@ -491,6 +507,7 @@ public class RoundManager : MonoBehaviour
 
                     yield return new WaitForSeconds(1f);
                     StartCoroutine(uiManager.DisplaySkullEffect(0.1f));
+                    SoundManager.instance.PlaySound(highPitchSfx, 0.5f);
 
                     EnemySpawner spawner90 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
                     StartCoroutine(HandleSpawner(spawner90, "sentryEnemy", 1, randomPosition));
@@ -498,6 +515,7 @@ public class RoundManager : MonoBehaviour
                     yield return new WaitForSeconds(1f);
                     uiManager.skullEffect.GetComponent<SpriteRenderer>().flipX = true;
                     StartCoroutine(uiManager.DisplaySkullEffect(0.1f));
+                    SoundManager.instance.PlaySound(highPitchSfx, 0.5f);
 
                     EnemySpawner spawner91 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
                     StartCoroutine(HandleSpawner(spawner91, "tankEnemy", 5, randomPosition));
@@ -508,6 +526,7 @@ public class RoundManager : MonoBehaviour
                     uiManager.skullEffect.GetComponent<SpriteRenderer>().transform.rotation = Quaternion.Euler(0f, 0f, -12f);
                     uiManager.skullEffect.GetComponent<SpriteRenderer>().transform.localScale = new Vector3(2f, 2f, 1f);
                     StartCoroutine(uiManager.DisplaySkullEffect(0.1f));
+                    SoundManager.instance.PlaySound(highPitchSfx, 0.5f);
 
                     EnemySpawner spawner92 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
                     StartCoroutine(HandleSpawner(spawner92, "baseEnemy", 4, randomPosition));
@@ -604,8 +623,6 @@ public class RoundManager : MonoBehaviour
                     yield return new WaitForSeconds(1f);
                     yield return StartCoroutine(uiManager.Shop());
                     break;
-                case 26:
-                    // TODO: Add game over screen
                 default:
                     Debug.Log("Error: Invalid round number");
                     break;
@@ -617,13 +634,20 @@ public class RoundManager : MonoBehaviour
                 case 5: 
                 case 10:
                 case 15:
+                case 20:
                     yield return new WaitForSeconds(1f);
                     yield return StartCoroutine(uiManager.Shop());
                     break;
                 default:
                     yield return new WaitForSeconds(1f);
                     EnemySpawner spawner1 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
-                    yield return StartCoroutine(HandleSpawner(spawner1, "baseEnemy", 1, randomPosition));
+                    StartCoroutine(HandleSpawner(spawner1, "baseEnemy", 1, randomPosition));
+                    EnemySpawner spawner2 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
+                    StartCoroutine(HandleSpawner(spawner2, "fastEnemy", 1, randomPosition));
+                    EnemySpawner spawner3 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
+                    StartCoroutine(HandleSpawner(spawner3, "tankEnemy", 1, randomPosition));
+                    EnemySpawner spawner4 = Instantiate(enemySpawner, getRandomLocation(), Quaternion.identity);
+                    yield return StartCoroutine(HandleSpawner(spawner4, "sentryEnemy", 1, randomPosition));
                     break;
             }
         }

@@ -6,12 +6,16 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public FadeController fadeController;
+    public AudioClip menuMusic;
 
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        SoundManager.instance.PlayMusic(menuMusic, 0f);
         yield return StartCoroutine(fadeController.FadeIn());
         fadeController.fadeImage.gameObject.SetActive(false);
+
+        StartCoroutine(SoundManager.instance.FadeInMusic(SoundManager.instance.musicSource));
     }
 
     // Update is called once per frame
@@ -23,6 +27,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         Debug.Log("Play button clicked");
+        StartCoroutine(SoundManager.instance.FadeOutMusic(SoundManager.instance.musicSource));
         SceneManager.LoadScene("PlayingScene");
     }
 
